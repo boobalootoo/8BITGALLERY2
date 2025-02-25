@@ -9,22 +9,27 @@
         .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
         .gallery img { width: 150px; height: 150px; object-fit: cover; }
     </style>
-    <script src="images.js"></script>
+    <script src="images.js" defer></script>
 </head>
 <body>
     <h1>Species Image Gallery</h1>
     <div class="gallery" id="gallery"></div>
 
     <script>
-        window.onload = function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof images === "undefined") {
+                console.error("Error: images.js failed to load or images array is missing.");
+                return;
+            }
+
             const gallery = document.getElementById("gallery");
             images.forEach(image => {
                 const imgElement = document.createElement("img");
-                imgElement.src = `images/${image}`;
+                imgElement.src = image; // Adjusted to match actual file locations
                 imgElement.alt = image;
                 gallery.appendChild(imgElement);
             });
-        };
+        });
     </script>
 </body>
 </html>
